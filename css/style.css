@@ -1,0 +1,57 @@
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+
+
+header, aside, section {
+  margin: 0;
+  text-align: left;
+}
+
+p {
+  font-size: 1.2em;
+}
+
+#searchArea {
+  margin-bottom: 0.5em;
+}
+  #listrow {
+      box-shadow: 5px 5px 25px -2px #333;
+      padding: 12px;
+      background-color: rgba(255,255,255,0.7);
+  }
+
+#restaurant-list {
+  padding: 0;
+}
+
+#restaurant-list li {
+  display: inline-block;
+  list-style-type: none;
+  font-size: 18px;
+  padding: 8px;
+  background: #222222;
+  color: #9d9d9d;
+  margin-bottom: 8px;
+}
+
+#restaurant-list li:hover {
+  cursor: pointer;
+  color: #fff;
+  background: gray;
+}
+
+  .list-container {
+    position: fixed;
+    z-index: 1;
+    width:290px;
+    padding:5px;
+    margin-top: 5%;
+    margin-right: 10px;
+    background-color: rgba(255,255,255,0.7);
+}
