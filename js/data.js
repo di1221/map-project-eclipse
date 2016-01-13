@@ -6,7 +6,8 @@ restaurants = [
            "lng" : -82.574851
         },
         "address" : "Westgate Regional Shopping Center, 5 Westgate Pkwy Suite 100, Asheville, NC 28806",
-        "website" : "jasonsdeli.com"
+        "website" : "jasonsdeli.com",
+        "yelpId" : "jasons-deli-asheville"
 	},
 	{
 		"name": "White Duck Taco Shop",
@@ -15,7 +16,8 @@ restaurants = [
 			"lng" : -82.569121
 		},
 		"address" : "1 Roberts St #101, Asheville, NC 28801",
-		"website" : "whiteducktacoshop.com"
+		"website" : "whiteducktacoshop.com",
+		"yelpId" : "white-duck-taco-shop-asheville"
 	},
 	{
 		"name" : "Mela Indian Restaurant",
@@ -24,7 +26,8 @@ restaurants = [
 			"lng" : -82.553474
 		},
 		"address" : "70 N Lexington Ave, Asheville, NC 28801",
-		"website" : "melaasheville.com"
+		"website" : "melaasheville.com",
+        "yelpId" : "mela-indian-restaurant-asheville"
 	},
 	{
 		"name" : "Sunny Point Café",
@@ -33,7 +36,8 @@ restaurants = [
 			"lng" : -82.588578
 		},
 		"address" : "626 Haywood Rd, Asheville, NC 28806",
-		"website" : "sunnypointcafe.com"
+		"website" : "sunnypointcafe.com",
+		"yelpId" : "sunny-point-café-asheville"
 	},
 	{
 		"name" : "12 Bones Smoke House",
@@ -42,7 +46,8 @@ restaurants = [
 			"lng" : -82.567206
 		},
 		"address" : "5 Riverside Dr, Asheville, NC 28801",
-		"website" : "12bones.com"
+		"website" : "12bones.com",
+		"yelpId" : "12-bones-smokehouse-asheville"
 	}
 
 ]

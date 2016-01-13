@@ -3,51 +3,53 @@ var markerArray = [];
 var map;
 var marker;
 
-	//function initMap() {
-		
-		var markerArray = [];
-		
-		var asheville = new google.maps.LatLng(35.559139, -82.567327);
-		var map = new google.maps.Map($('#map')[0], {
+	//creates initial map location and controls
+	var asheville = new google.maps.LatLng(35.559139, -82.567327);
+	var map = new google.maps.Map($('#map')[0], {
 		  center: asheville,
-		  zoom: 12,
-		  mapTypeControl: false,
-		  panControl: false,
-		  streetViewControl: false,
-		  zoomControl: false
-		}); 		
+		  zoom: 12
+	}); 		
 	
-
+	 //set variable for google maps info window popup
 	  infowindow = new google.maps.InfoWindow();
 	
-
-	var Restaurant = function(name, lat, lng, address, website) {
+	//create Restaurant Object, set variable to ko.observables  
+	var Restaurant = function(name, lat, lng, address, website, yelpId) {
 		this.name = ko.observable(name);
 		this.lat = ko.observable(location.lat);
 		this.lng = ko.observable(location.lng);
 		this.address = ko.observable(address);
 		this.website = ko.observable(website);	
+		this.yelpId = ko.observable(yelpId);
 
-	    //};
 		
+	//creates a marker for each Restaurant location	
 	this.marker = new google.maps.Marker({
 		position: new google.maps.LatLng(lat, lng),
 		map: map,
 		optimized: false //stops marker from flashing
 	});
 
+	  //this is the array to hold all of the map markers	
 	  markerArray.push(marker);
+	  //create animation effect on marker
 	  this.marker.setAnimation(google.maps.Animation.DROP);
 
+	  //event listener to open google infoWindow when marker is clicked.  Displays values for each of the variables
 	  google.maps.event.addListener(this.marker, 'click', function() {
-	    infowindow.setContent('<div>' + restaurants.name + '</div>' + '<div>' + restaurants.address + '</div>' + '<div>' + restaurants.location.lat + " , " + restaurants.location.lng + '</div>' + '<div><a href=http://' + restaurants.website + '>' + restaurants.website + '</a></div>');
+		  
+			yelpRequest(yelpId, function(data) {
+				//infowindow.open(map, this);
+			}); 	  
+	    //infowindow.setContent('<div>' + name + '</div>' + '<div>' + address + '</div>' + '<div>' + lat + " , " + lng + '</div>' + '<div><a href=http://' + website + '>' + website + '</a></div>' + '<div>' + yelpId + '</div>');
 	    infowindow.open(map, this);
 	  });
 
 	
+
+	  //function is used to hide or show markers on the map
 	  this.isVisible = ko.observable(true);
  
-	  //Hides or show markers on the map
 	  this.isVisible.subscribe(function(currentState) {	  
 	    if (currentState) {  
 	      this.marker.setMap(map);
@@ -57,13 +59,18 @@ var marker;
 	  }.bind(this)); 
 	};
 	
+
+	
+
+
+		
 	var viewModel = function() {
 
 		 //make location observable
 		  this.locations = ko.observableArray([]);
 		  //push each restaurant object from restaurants array into this.locations
 		  restaurants.forEach(function(restaurant){		  
-		    this.locations.push(new Restaurant(restaurant.name, restaurant.location.lat, restaurant.location.lng, restaurant.address, restaurant.website));	
+		    this.locations.push(new Restaurant(restaurant.name, restaurant.location.lat, restaurant.location.lng, restaurant.address, restaurant.website, restaurant.yelpId));	
 		  }, this); 
 
 		  //Search query, bound to #searchBox input field
@@ -90,45 +97,21 @@ var marker;
 		    }	
 		  }, this);	
 
-		  /*Opens infowindow when location on list is clicked*/
-		  this.openLocationWindow = function(clickedLocation) {
-		    clickedLocation.openInfoWindow();
-		  };
-		
-		
-	/*	
-		
-		var self = this;
-		self.restaurants = ko.observableArray([]);
-		self.query = ko.observable('');
-	
-		restaurants.forEach(function (restaurant) {
-			self.restaurants.push(new Restaurant(restaurant));
-		});
-
-		self.restaurants = ko.dependentObservable(function() {
-			var search = self.query().toLowerCase();
-	        return ko.utils.arrayFilter(restaurants, function(restaurant) {
-
-	        if(restaurant.name.toLowerCase().indexOf(search) >= 0){
-
-	            return restaurant.name.toLowerCase().indexOf(search) >= 0;
-	        };
-
-	 		});
-		}, restaurants);
-
-
+		  
+		//click event listener for each marker
 		this.listSelect = function(clickedRestaurant) {
+		    lat = clickedRestaurant.marker.position.lat;
+		    lng = clickedRestaurant.marker.position.lng;
+		    
+		    //sets up infoWindow
+		    infowindow.setContent('<div>' + clickedRestaurant.name() + '</div>' + '<div>' + clickedRestaurant.address() + '</div>' + '<div>' + lat() + " , " + lng() + '</div>' + '<div><a href=http://' + clickedRestaurant.website() + '>' + clickedRestaurant.website() + '</a></div>');
 
-		    infowindow.setContent('<div>' + clickedRestaurant.name + '</div>' + '<div>' + clickedRestaurant.address + '</div>' + '<div>' + clickedRestaurant.location.lat + " , " + clickedRestaurant.location.lng + '</div>' + '<div><a href=http://' + clickedRestaurant.website + '>' + clickedRestaurant.website + '</a></div>');
-
-
-			//marker.setPosition(new google.maps.LatLng(position));
-			//marker.setAnimation(google.maps.Animation.BOUNCE);
-			//setTimeout(function(){ marker.setAnimation(null); }, 1200);
-			//infowindow.open(map, marker);
+			//sets the position for each marker selected and create and time limited animation effect
+		    clickedRestaurant.marker.setPosition(new google.maps.LatLng(lat(),lng()));
+			clickedRestaurant.marker.setAnimation(google.maps.Animation.BOUNCE);
+			setTimeout(function(){ clickedRestaurant.marker.setAnimation(null); }, 1200);
+			infowindow.open(map, clickedRestaurant.marker);
 		}
-*/
+
 	};
 	ko.applyBindings(new viewModel());

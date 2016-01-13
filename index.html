@@ -5,27 +5,34 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnhU4AHZ23rLqKJFoo3pyVz7b1i9X9VTg&signed_in=true&libraries=places" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnhU4AHZ23rLqKJFoo3pyVz7b1i9X9VTg&signed_in=true&libraries=places"></script>         
   </head>
   <body>
 				<header>
-					<div class="introduction">
-						<h3 class="lead">Asheville!</h3>
+					<div>
+						<h3>Asheville's Best Restaurants</h3>
 					</div>
 					<div id="searchArea">
-						<input data-bind="textInput: filter" placeholder="Search"/>
+						<input id="searchBox" data-bind="textInput: filter" placeholder="Search..."/>
 				  	</div>
 				</header>
-    <div class="list-container">
+    <div id="restaurant-list">
         <ul data-bind="foreach: filteredItems">
             <li data-bind="text: name, click: $parent.listSelect"></li>
         </ul>
     </div>
     <div id="map" data-bind="map: map"></div>
 
+
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+		<script type="text/javascript" src="http://oauth.googlecode.com/svn/code/javascript/oauth.js"></script>
+		<script type="text/javascript" src="http://oauth.googlecode.com/svn/code/javascript/sha1.js"></script>
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.2.0/knockout-min.js"></script>
     <script src="js/lib/jquery.min.js"></script>
     <script src="js/data.js"></script>
-    <script src="js/app.js"></script>
-  </body>
+    <script src="js/app.js"></script>  
+    <script src="js/yelpApi.js"></script>  
+    </body>
 </html>
