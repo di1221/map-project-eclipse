@@ -37,7 +37,7 @@ restaurants = [
 		},
 		"address" : "626 Haywood Rd, Asheville, NC 28806",
 		"website" : "sunnypointcafe.com",
-		"yelpId" : "sunny-point-café-asheville"
+		"yelpId" : "sunny-point-cafe-asheville"
 	},
 	{
 		"name" : "12 Bones Smoke House",
