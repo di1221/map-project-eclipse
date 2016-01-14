@@ -1,9 +1,8 @@
 var yelpRequest = function(yelpId, callback) {
 	
 	var auth = {
-		//
-		// Update with your auth tokens.
-		//
+		
+		// authorization tokens.
 		consumerKey : "Zq7xesfXgVkNiOHtTK7Blg",
 		consumerSecret : "W0YwThiw1nrBiHw3IbKyBMMoYWY",
 		accessToken : "XvSWwwt6Z3Ab6aDrzydgAWErZ-40BSG6",
@@ -13,17 +12,13 @@ var yelpRequest = function(yelpId, callback) {
 		}
 	};
 	
-	//var near = 'Asheville';
-	//var reviews = 'reviews';
-	
 	var accessor = {
 		consumerSecret : auth.consumerSecret,
 		tokenSecret : auth.accessTokenSecret
 	};
 	parameters = [];
-	
-	console.log(window.restaurants);
-	
+
+	//populate array of yelp search parameters
 	parameters.push(['callback', 'cb']);
 	parameters.push(['yelpId', 'yelpId']);
 	parameters.push(['oauth_consumer_key', auth.consumerKey]);
@@ -36,7 +31,6 @@ var yelpRequest = function(yelpId, callback) {
 		'method' : 'GET',
 		'parameters' : parameters
 	};
-	
 	
 	OAuth.setTimestampAndNonce(message);
 	OAuth.SignatureMethod.sign(message, accessor);
@@ -52,15 +46,12 @@ var yelpRequest = function(yelpId, callback) {
 		'success' : function(data, textStats, XMLHttpRequest) {
 			callback(data.business);
 			var output = data.mobile_url;
-	console.log(data);	
-			infowindow.setContent("<div>" + data.name + "</div>" + "<div>" + "<div>" + data.location.display_address + "</div>" + "<div>" + "<a href='" + output + "'>Open on Yelp </a>" + "</div>" + "<div>" + "<img src='" + data.image_url +  "'/>"  + "</div>" + "<div>" + "<a href='" + output + "'><img src='images/yelp_powered_btn_red.png' width='129px' height='30px' /></a>" + "</div>");
+	
+			infowindow.setContent("<div>" + data.name + "</div>" + "<div>" + "<div>" + data.location.display_address + "</div>" + 
+					"<div>" + "<a href='" + output + "' target=_'blank'>Open in Yelp </a>" + "</div>" + "<div>" + data.review_count + " reviews </div>" +  
+					 "<div>" + "<a href='" + output + 
+					"' target=_'blank'><img src='images/yelp_powered_btn_red.png' width='129px' height='30px' /></a>" + "</div>");
 
-			//infowindow.setContent("<div>" + "<a href='" + output + "'>View on Yelp </a>" + "</div>" + "<div>" + "<img src='" + data.image_url +  "'/>"  + "</div>" + "<div>" + "<a href='" + output + "'><img src='images/yelp_powered_btn_red.png' width='129px' height='30px' /></a>" + "</div>");
-			
-			//infowindow.open(map, this);
-
-
-			$('infowindow').append(output);
 		}
 	  }).fail(function(e){
 		   // $('#yelpWindow').text("Error: Yelp data could not be loaded");  //Error handling - Display error message

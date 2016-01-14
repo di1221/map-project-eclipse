@@ -1,19 +1,25 @@
+    
+    /* for responsive design  */
      image, embed,
      object, video {
      	max-width: 100%;
      }
      
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
-
-	
-	header, aside, section {
+    /* for responsive design  */ 
+    html, body {
+       height: 100%;
+       margin: 0;
+       padding: 0;
+    }
+    
+   /* for responsive design  */   
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+     
+    /* for responsive design  */  
+	header {
 	  margin: 20px;
 	  text-align: left;
 	  width: 100%;
@@ -32,12 +38,6 @@
 		width: 45%;
 		padding: 10px;
 	}
-
-    #listrow {
-      box-shadow: 5px 5px 25px -2px #333;
-      padding: 12px;
-      background-color: rgba(255,255,255,0.7);
-    }
 
 	#restaurant-list {
 	  padding: 0;

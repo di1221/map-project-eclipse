@@ -8,8 +8,16 @@ var marker;
 	var map = new google.maps.Map($('#map')[0], {
 		  center: asheville,
 		  zoom: 12
-	}); 		
+	}); 
 	
+	//listener for resize function	
+	google.maps.event.addDomListener(window, 'resize',
+		 resize);
+	//makes map responsive keeping focus at map center  
+	function resize() {
+		map.setCenter(asheville);
+	}
+	  
 	 //set variable for google maps info window popup
 	  infowindow = new google.maps.InfoWindow();
 	
@@ -38,11 +46,10 @@ var marker;
 	  //event listener to open google infoWindow when marker is clicked.  Displays values for each of the variables
 	  google.maps.event.addListener(this.marker, 'click', function() {
 		  
-			yelpRequest(yelpId, function(data) {
-				//infowindow.open(map, this);
-			}); 	  
-	    //infowindow.setContent('<div>' + name + '</div>' + '<div>' + address + '</div>' + '<div>' + lat + " , " + lng + '</div>' + '<div><a href=http://' + website + '>' + website + '</a></div>' + '<div>' + yelpId + '</div>');
-	    infowindow.open(map, this);
+		  	//call yelp request function in yelpApi.js
+			yelpRequest(yelpId, function(data) {}); 
+			//opens window for selected marker - populated with yelp data
+			infowindow.open(map, this);
 	  });
 
 	
@@ -98,13 +105,15 @@ var marker;
 		  }, this);	
 
 		  
-		//click event listener for each marker
+		//click event listener for marker of selected restaurant
 		this.listSelect = function(clickedRestaurant) {
 		    lat = clickedRestaurant.marker.position.lat;
 		    lng = clickedRestaurant.marker.position.lng;
 		    
 		    //sets up infoWindow
-		    infowindow.setContent('<div>' + clickedRestaurant.name() + '</div>' + '<div>' + clickedRestaurant.address() + '</div>' + '<div>' + lat() + " , " + lng() + '</div>' + '<div><a href=http://' + clickedRestaurant.website() + '>' + clickedRestaurant.website() + '</a></div>');
+		    infowindow.setContent('<div>' + clickedRestaurant.name() + '</div>' + '<div>' + clickedRestaurant.address() + '</div>' + 
+		    		'<div>' + lat() + " , " + lng() + '</div>' + '<div><a href=http://' + clickedRestaurant.website() + ' target=_"blank">' + 
+		    		clickedRestaurant.website() + '</a></div>');
 
 			//sets the position for each marker selected and create and time limited animation effect
 		    clickedRestaurant.marker.setPosition(new google.maps.LatLng(lat(),lng()));
